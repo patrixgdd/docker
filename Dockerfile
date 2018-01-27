@@ -5,10 +5,12 @@ MAINTAINER "patricktsang" <patrick@patricktsang.net>
 ENV container docker
 
 RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
 # normal updates, tools, nginx, cleanup
 RUN yum -y update \
  && yum -y install epel-release iproute crontabs \
+ && yum -y install php71w php71w-devel php71w-mcrypt php71w-opcache php71w-fpm \
  && yum -y install nginx \
  && yum -y install net-tools \
  && yum -y install sudo \
@@ -31,4 +33,5 @@ RUN systemctl enable nginx \
  && systemctl enable crond
 
 # CMD ["/usr/sbin/init"]
-CMD ["nginx", "-g", "daemon off;"]
+CMD nginx -g 'daemon off;' && php-fpm --nodaemonize
+
