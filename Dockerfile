@@ -10,13 +10,13 @@ RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 # normal updates, tools, nginx, cleanup
 RUN yum -y update \
  && yum -y install epel-release iproute crontabs \
- && yum -y install php71w php71w-devel php71w-mcrypt php71w-opcache php71w-fpm \
+ && yum -y install php72w php72w-devel php72w-mcrypt php72w-opcache php72w-fpm \
  && yum -y install nginx \
  && yum -y install net-tools \
  && yum -y install sudo \
  && yum clean all
 
-RUN curl --silent --location https://rpm.nodesource.com/setup_9.x | bash -
+RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash -
 RUN yum -y install nodejs
 RUN yum -y install gcc-c++ make
 RUN npm install pm2 -g
